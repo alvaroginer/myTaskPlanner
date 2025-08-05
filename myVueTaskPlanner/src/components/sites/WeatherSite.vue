@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import { fetchWeatherData } from "../../lib/api";
+import WeatherCard from "../cards/WeatherCard.vue";
 
-type WeatherData = {
+export type WeatherData = {
   date: string;
   temperature: number;
 };
@@ -18,6 +19,16 @@ onMounted(async () => {
 });
 </script>
 
-<template></template>
+<template>
+  <div>
+    <p v-if="!weatherData">Loading...</p>
+    <WeatherCard
+      v-for="(dayData, index) in weatherData"
+      :date="dayData.date"
+      :temperature="dayData.temperature"
+      :key="index"
+    />
+  </div>
+</template>
 
 <style></style>

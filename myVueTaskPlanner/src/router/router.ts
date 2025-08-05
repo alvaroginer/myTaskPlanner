@@ -39,4 +39,21 @@ const router = createRouter({
   routes,
 });
 
+// router.beforeEach((to, from, next) => {
+//   const store = useStore()
+//   const isAuthenticated = !!store.userData
+
+//   if (!to.path.startsWith('/home')) {
+//     // Ruta pública, dejamos pasar
+//     return next();
+//   }
+
+//   // Ruta protegida
+//   if (!isAuthenticated()) {
+//     return next('/login');
+//   }
+
+//   next();
+// });
+
 export default router;

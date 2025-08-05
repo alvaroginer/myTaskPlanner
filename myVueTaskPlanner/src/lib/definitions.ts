@@ -3,7 +3,13 @@ export interface UserData {
   lastName: string;
   email: string;
   tasks: TaskData[];
+  id: string;
 }
+
+export type PiniaUser = Pick<
+  UserData,
+  "email" | "id" | "firstName" | "lastName"
+>;
 
 export interface TaskData {
   taskId: string;

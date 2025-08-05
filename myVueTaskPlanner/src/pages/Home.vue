@@ -2,6 +2,19 @@
 import { RouterLink } from "vue-router";
 import { RouterView } from "vue-router";
 import CardContainer from "../components/CardContainer.vue";
+//Faltan los imports
+
+//deinir aquí onAuthStateChanged
+// onMounted(() => {
+//   const store = useStore();
+//   onAuthStateChanged(getAuth(), (firebaseUser) => {
+//     if (firebaseUser) {
+//       return
+//     } else {
+//       store.logOut();
+//     }
+//   });
+// });
 </script>
 
 <template>
