@@ -1,32 +1,3 @@
-<script setup lang="ts">
-import { ref, computed } from "vue";
-
-type InputTextProps = {
-  id: string;
-  label: string;
-  placeholder: string;
-  errorMessage?: string;
-  limit?: number;
-  modelValue: string;
-};
-
-const { id, label, placeholder, errorMessage, limit } =
-  defineProps<InputTextProps>();
-
-const emit = defineEmits(["update:modelValue"]);
-
-const inputData = ref("");
-
-const inputError = computed(() => {
-  if (!limit) return null;
-  return inputData.value.length > limit;
-});
-
-const handleInput = ($event: any) => {
-  emit("update:modelValue", $event.target.value);
-};
-</script>
-
 <template>
   <div class="container">
     <label :for="id">{{ label }}</label>
@@ -36,7 +7,7 @@ const handleInput = ($event: any) => {
       :id="id"
       :placeholder="placeholder"
       :class="{ error: errorMessage || inputError }"
-      v-model="inputData"
+      v-model="modelValue"
       @input="handleInput($event)"
     />
     <div>
@@ -47,6 +18,59 @@ const handleInput = ($event: any) => {
     </div>
   </div>
 </template>
+
+<script lang="ts">
+import { defineComponent } from "vue";
+
+export default defineComponent({
+  name: "InputText",
+  props: {
+    id: {
+      type: String as () => string,
+      required: true,
+    },
+    label: {
+      type: String as () => string,
+      required: true,
+    },
+    placeholder: {
+      type: String as () => string,
+      required: true,
+    },
+    errorMessage: {
+      type: String as () => string,
+    },
+    limit: {
+      type: Number as () => number,
+    },
+    modelValue: {
+      type: String as () => string,
+    },
+  },
+  emits: ["update:modelValue"],
+
+  data() {
+    return {
+      inputData: this.modelValue as string,
+    };
+  },
+
+  computed: {
+    inputError(): boolean {
+      if (!this.limit) return false;
+      return this.inputData.length > this.limit;
+    },
+  },
+
+  methods: {
+    handleInput(event: Event) {
+      const value = (event.target as HTMLInputElement).value;
+      this.inputData = value;
+      this.$emit("update:modelValue", value);
+    },
+  },
+});
+</script>
 
 <style scoped>
 .container {

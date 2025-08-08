@@ -1,40 +1,3 @@
-<script setup lang="ts">
-import { computed } from "vue";
-import type { WeatherData } from "../sites/WeatherSite.vue";
-
-const { date, temperature } = defineProps<WeatherData>();
-
-const dateInfo = computed(() => {
-  const validDate = new Date(date);
-  const validDay = validDate.toLocaleDateString("es-ES", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-  const validHour = validDate.getHours();
-
-  return { hour: validHour, day: validDay };
-});
-
-const thermalSensation = computed(() => {
-  let sensation: string;
-  switch (true) {
-    case temperature <= 10:
-      sensation = "Cold";
-      break;
-    case temperature <= 24:
-      sensation = "Pleasant";
-      break;
-    case temperature > 24:
-      sensation = "Hot";
-      break;
-    default:
-      sensation = "Unknown";
-  }
-  return sensation;
-});
-</script>
-
 <template>
   <div>
     <p>Day: {{ dateInfo.day }} at {{ dateInfo.hour }}</p>
@@ -44,6 +7,60 @@ const thermalSensation = computed(() => {
     </p>
   </div>
 </template>
+
+<script lang="ts">
+import { defineComponent } from "vue";
+
+type DateInfoData = {
+  hour: number;
+  day: string;
+};
+
+export default defineComponent({
+  name: "WeatherCard",
+  props: {
+    date: {
+      type: String as () => string,
+      required: true,
+    },
+    temperature: {
+      type: Number as () => number,
+      required: true,
+    },
+  },
+
+  computed: {
+    dateInfo(): DateInfoData {
+      const validDate = new Date(this.date);
+      const validDay = validDate.toLocaleDateString("es-ES", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
+      const validHour = validDate.getHours();
+
+      return { hour: validHour, day: validDay };
+    },
+    thermalSensation(): string {
+      let sensation: string;
+      switch (true) {
+        case this.temperature <= 10:
+          sensation = "Cold";
+          break;
+        case this.temperature <= 24:
+          sensation = "Pleasant";
+          break;
+        case this.temperature > 24:
+          sensation = "Hot";
+          break;
+        default:
+          sensation = "Unknown";
+      }
+      return sensation;
+    },
+  },
+});
+</script>
 
 <style scoped>
 .container {

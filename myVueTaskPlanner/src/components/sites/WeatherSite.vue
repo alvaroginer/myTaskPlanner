@@ -1,24 +1,3 @@
-<script setup lang="ts">
-import { onMounted, ref } from "vue";
-import { fetchWeatherData } from "../../lib/api";
-import WeatherCard from "../cards/WeatherCard.vue";
-
-export type WeatherData = {
-  date: string;
-  temperature: number;
-};
-
-const weatherData = ref<WeatherData[]>();
-
-onMounted(async () => {
-  const res = await fetchWeatherData();
-
-  if (res) {
-    weatherData.value = res;
-  }
-});
-</script>
-
 <template>
   <div>
     <p v-if="!weatherData">Loading...</p>
@@ -31,4 +10,30 @@ onMounted(async () => {
   </div>
 </template>
 
-<style></style>
+<script lang="ts">
+import { defineComponent } from "vue";
+import { fetchWeatherData } from "../../lib/api";
+import WeatherCard from "../cards/WeatherCard.vue";
+
+type WeatherData = {
+  date: string;
+  temperature: number;
+};
+
+export default defineComponent({
+  name: "WeatherSite",
+  data() {
+    return {
+      weatherData: null as WeatherData[] | null,
+    };
+  },
+
+  async mounted() {
+    const res = await fetchWeatherData();
+
+    if (res) {
+      this.weatherData = res;
+    }
+  },
+});
+</script>
