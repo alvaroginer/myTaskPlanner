@@ -6,7 +6,7 @@ export interface UserData {
   id: string;
 }
 
-export type PiniaUser = Pick<
+export type VuexUser = Pick<
   UserData,
   "email" | "id" | "firstName" | "lastName"
 >;

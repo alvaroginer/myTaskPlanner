@@ -7,7 +7,7 @@
       :id="id"
       :placeholder="placeholder"
       :class="{ error: errorMessage || inputError }"
-      v-model="modelValue"
+      v-model="inputData"
       @input="handleInput($event)"
     />
     <div>

@@ -1,18 +1,26 @@
-<script setup lang="ts">
-type StatCardProps = {
-  name: string;
-  data: number;
-};
-
-const { name, data } = defineProps<StatCardProps>();
-</script>
-
 <template>
   <div class="card">
     <p>{{ name }}</p>
     <p>{{ data }}</p>
   </div>
 </template>
+
+<script lang="ts">
+import { defineComponent } from "vue";
+
+export default defineComponent({
+  props: {
+    name: {
+      type: String as () => string,
+      required: true,
+    },
+    data: {
+      type: Number as () => number,
+      required: true,
+    },
+  },
+});
+</script>
 
 <style scoped>
 p {

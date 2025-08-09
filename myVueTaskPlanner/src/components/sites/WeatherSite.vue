@@ -22,6 +22,9 @@ type WeatherData = {
 
 export default defineComponent({
   name: "WeatherSite",
+  components: {
+    WeatherCard,
+  },
   data() {
     return {
       weatherData: null as WeatherData[] | null,

@@ -38,6 +38,9 @@ interface TaskForm {
 }
 
 export default defineComponent({
+  components: {
+    InputText,
+  },
   data() {
     return {
       formData: {
