@@ -6,6 +6,10 @@ export interface UserData {
   id: string;
 }
 
+export type VuexStore = {
+  userData: VuexUser | null;
+};
+
 export type VuexUser = Pick<
   UserData,
   "email" | "id" | "firstName" | "lastName"
