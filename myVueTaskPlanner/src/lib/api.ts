@@ -33,6 +33,17 @@ export const fetchWeatherData = async () => {
       temperature: temperature_2m[index],
     }));
 
+    let weeklyTemperature: Record<number, number[]> = {};
+    time.forEach((timestamp, index) => {
+      const timestampDate = new Date(timestamp).getDay();
+
+      if (!weeklyTemperature[timestampDate]) {
+        weeklyTemperature[timestampDate] = [temperature_2m[index]];
+      } else {
+        weeklyTemperature[timestampDate].push(temperature_2m[index]);
+      }
+    });
+
     return combinedData;
   } catch (error: any) {
     console.log(error.message);
