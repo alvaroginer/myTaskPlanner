@@ -18,11 +18,11 @@ type OpenMeteoHourlyResponse = {
 export const fetchWeatherData = async () => {
   try {
     const url =
-      "https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&hourly=temperature_2m";
+      'https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&hourly=temperature_2m';
     const response = await fetch(url);
 
     if (!response.ok) {
-      throw new Error("An error occurred while fecthing the data");
+      throw new Error('An error occurred while fecthing the data');
     }
 
     const weatherData: OpenMeteoHourlyResponse = await response.json();
@@ -35,7 +35,7 @@ export const fetchWeatherData = async () => {
 
     let weeklyTemperature: Record<number, number[]> = {};
     time.forEach((timestamp, index) => {
-      const timestampDate = new Date(timestamp).getDay();
+      const timestampDate = new Date(timestamp).getTime();
 
       if (!weeklyTemperature[timestampDate]) {
         weeklyTemperature[timestampDate] = [temperature_2m[index]];
