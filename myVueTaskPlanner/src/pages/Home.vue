@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { RouterLink } from "vue-router";
-import { RouterView } from "vue-router";
-import CardContainer from "../components/CardContainer.vue";
+import { RouterLink, RouterView } from 'vue-router';
+import CardContainer from '../components/CardContainer.vue';
 //Faltan los imports
 
 //deinir aquí onAuthStateChanged

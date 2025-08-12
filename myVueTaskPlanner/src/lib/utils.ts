@@ -22,3 +22,7 @@ export const generateDayString = (timestamp: number) => {
   const dateToStr = newDate.toDateString();
   return dateToStr;
 };
+
+export const getAvg = (grades: number[]) => {
+  return (grades.reduce((acc, c) => acc + c, 0) / grades.length).toFixed(1);
+};

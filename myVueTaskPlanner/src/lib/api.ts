@@ -28,14 +28,10 @@ export const fetchWeatherData = async () => {
     const weatherData: OpenMeteoHourlyResponse = await response.json();
 
     const { time, temperature_2m } = weatherData.hourly;
-    // const combinedData = time.map((timestamp, index) => ({
-    //   date: timestamp,
-    //   temperature: temperature_2m[index],
-    // }));
 
-    let weeklyTemperature: Record<number, number[]> = {};
+    let weeklyTemperature: Record<string, number[]> = {};
     time.forEach((timestamp, index) => {
-      const timestampDate = new Date(timestamp).getTime();
+      const timestampDate = new Date(timestamp).toLocaleDateString();
 
       if (!weeklyTemperature[timestampDate]) {
         weeklyTemperature[timestampDate] = [temperature_2m[index]];
@@ -43,6 +39,8 @@ export const fetchWeatherData = async () => {
         weeklyTemperature[timestampDate].push(temperature_2m[index]);
       }
     });
+
+    console.log(weeklyTemperature);
 
     return weeklyTemperature;
   } catch (error: any) {

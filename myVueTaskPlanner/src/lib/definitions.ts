@@ -12,7 +12,7 @@ export type VuexStore = {
 
 export type VuexUser = Pick<
   UserData,
-  "email" | "id" | "firstName" | "lastName"
+  'email' | 'id' | 'firstName' | 'lastName'
 >;
 
 export interface TaskData {

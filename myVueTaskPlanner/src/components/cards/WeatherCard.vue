@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="glass-effect">
     <p>Day: {{ dateInfo.day }} at {{ dateInfo.hour }}</p>
     <p>
       Temperature: {{ temperature }}ºC - Thermal Sensation:
@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
 
 type DateInfoData = {
   hour: number;
@@ -17,7 +17,7 @@ type DateInfoData = {
 };
 
 export default defineComponent({
-  name: "WeatherCard",
+  name: 'WeatherCard',
   props: {
     date: {
       type: String as () => string,
@@ -32,10 +32,10 @@ export default defineComponent({
   computed: {
     dateInfo(): DateInfoData {
       const validDate = new Date(this.date);
-      const validDay = validDate.toLocaleDateString("es-ES", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
+      const validDay = validDate.toLocaleDateString('es-ES', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
       });
       const validHour = validDate.getHours();
 
@@ -45,16 +45,16 @@ export default defineComponent({
       let sensation: string;
       switch (true) {
         case this.temperature <= 10:
-          sensation = "Cold";
+          sensation = 'Cold';
           break;
         case this.temperature <= 24:
-          sensation = "Pleasant";
+          sensation = 'Pleasant';
           break;
         case this.temperature > 24:
-          sensation = "Hot";
+          sensation = 'Hot';
           break;
         default:
-          sensation = "Unknown";
+          sensation = 'Unknown';
       }
       return sensation;
     },
