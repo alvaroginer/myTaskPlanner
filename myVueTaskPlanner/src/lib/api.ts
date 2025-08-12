@@ -28,10 +28,10 @@ export const fetchWeatherData = async () => {
     const weatherData: OpenMeteoHourlyResponse = await response.json();
 
     const { time, temperature_2m } = weatherData.hourly;
-    const combinedData = time.map((timestamp, index) => ({
-      date: timestamp,
-      temperature: temperature_2m[index],
-    }));
+    // const combinedData = time.map((timestamp, index) => ({
+    //   date: timestamp,
+    //   temperature: temperature_2m[index],
+    // }));
 
     let weeklyTemperature: Record<number, number[]> = {};
     time.forEach((timestamp, index) => {
@@ -44,7 +44,7 @@ export const fetchWeatherData = async () => {
       }
     });
 
-    return combinedData;
+    return weeklyTemperature;
   } catch (error: any) {
     console.log(error.message);
   }

@@ -1,6 +1,7 @@
 <template>
   <div>
     <h4>{{ dateInfo }}</h4>
+    <p>Avg. Temperature {{ temperature }} ºC</p>
   </div>
 </template>
 

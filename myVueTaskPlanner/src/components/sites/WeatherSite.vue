@@ -1,29 +1,26 @@
 <template>
   <div>
-    <p v-if="!weatherData">Loading...</p>
-    <WeatherCard
-      v-for="(dayData, index) in weatherData"
-      :date="dayData.date"
-      :temperature="dayData.temperature"
-      :key="index"
+    <DayWeekCard
+      v-for="(dayWeather, index) in weatherData"
+      :date="weatherData.dayWeather"
+      :temperature=""
     />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { fetchWeatherData } from "../../lib/api";
-import WeatherCard from "../cards/WeatherCard.vue";
-
+import { defineComponent } from 'vue';
+import { fetchWeatherData } from '../../lib/api';
+import DayWeekCard from '../cards/DayWeekCard.vue';
 type WeatherData = {
   date: string;
   temperature: number;
 };
 
 export default defineComponent({
-  name: "WeatherSite",
+  name: 'WeatherSite',
   components: {
-    WeatherCard,
+    DayWeekCard,
   },
   data() {
     return {
