@@ -1,4 +1,11 @@
 <template>
+  <div>
+    <Select
+      v-model="selectOption"
+      id="weatherSelect"
+      :options="['Valencia', 'Reykjavik', 'La Virgen de la Vega']"
+    ></Select>
+  </div>
   <div v-if="weatherData" class="container">
     <div style="flex: 1">
       <DayWeekCard
@@ -26,16 +33,19 @@ import { fetchWeatherData } from '../../lib/api';
 import { getAvg } from '../../lib/utils';
 import DayWeekCard from '../cards/DayWeekCard.vue';
 import WeatherChart from '../charts/WeatherChart.vue';
+import Select from '../select/Select.vue';
 
 export default defineComponent({
   name: 'WeatherSite',
   components: {
     DayWeekCard,
     WeatherChart,
+    Select,
   },
   data() {
     return {
       weatherData: null as Record<string, number[]> | null,
+      selectOption: '' as string,
     };
   },
 
@@ -51,7 +61,7 @@ export default defineComponent({
   },
 
   async mounted() {
-    const res = await fetchWeatherData();
+    const res = await fetchWeatherData(this.selectOption);
 
     if (res) {
       this.weatherData = res;

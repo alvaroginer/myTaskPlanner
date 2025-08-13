@@ -38,7 +38,7 @@ export const fetchWeatherData = async (option: string) => {
         break;
 
       default:
-        throw new Error('Opción no válida');
+        url = URL_VALENCIA;
     }
 
     const response = await fetch(url);
