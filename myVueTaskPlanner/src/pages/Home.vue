@@ -35,7 +35,7 @@ import CardContainer from '../components/CardContainer.vue';
           Weather</RouterLink
         >
       </div>
-      <div>
+      <div style="background-color: azure">
         <RouterView />
       </div>
     </div>

@@ -11,7 +11,7 @@ export default defineComponent({
   name: 'WeatherChart',
   props: {
     chartData: {
-      type: Array as PropType<string[]>,
+      type: Array as PropType<string[] | number[]>,
       required: true,
     },
     chartLabels: {

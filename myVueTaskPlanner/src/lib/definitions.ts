@@ -40,3 +40,10 @@ export interface TaskFormState {
   success: boolean;
   errors: TaskFormErrors;
 }
+
+export const URL_VALENCIA =
+  'https://api.open-meteo.com/v1/forecast?latitude=39.4699&longitude=-0.3763&hourly=temperature_2m';
+export const URL_REYKJAVIK =
+  'https://api.open-meteo.com/v1/forecast?latitude=64.1355&longitude=-21.8954&hourly=temperature_2m';
+export const URL_VIRGEN_DE_LA_VEGA =
+  'https://api.open-meteo.com/v1/forecast?latitude=40.065&longitude=-1.404&hourly=temperature_2m';

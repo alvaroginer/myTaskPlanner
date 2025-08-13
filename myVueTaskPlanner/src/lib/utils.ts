@@ -26,3 +26,8 @@ export const generateDayString = (timestamp: number) => {
 export const getAvg = (grades: number[]) => {
   return (grades.reduce((acc, c) => acc + c, 0) / grades.length).toFixed(1);
 };
+
+export const hours = Array.from(
+  { length: 24 },
+  (_, i) => `${String(i).padStart(2, '0')}:00`
+);

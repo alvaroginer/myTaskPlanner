@@ -6,6 +6,7 @@ import SignUp from '../pages/Signup.vue';
 import WeatherSite from '../components/sites/WeatherSite.vue';
 import TaskSite from '../components/sites/TaskSite.vue';
 import SingleTask from '../components/cards/SingleTaskCard.vue';
+import WeatherChart from '../components/charts/WeatherChart.vue';
 
 const routes = [
   { path: '/', component: Landing },

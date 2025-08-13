@@ -4,25 +4,45 @@
       <h4>Date: {{ date }}</h4>
       <p>Avg. Temperature {{ getAvg(temperatures) }} ºC</p>
     </div>
-    <RouterLink to="">Open Tab</RouterLink>
+    <button @click="toggleShowChart">
+      {{ showChart ? 'Close Tab' : 'Open Tab' }}
+    </button>
+    <div v-if="showChart">
+      <WeatherChart
+        :chart-data="temperatures"
+        :chart-labels="hours"
+        :y-axis-at-cero="false"
+      />
+    </div>
   </div>
-  <RouterView />
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 import type { PropType } from 'vue';
-import { getAvg } from '../../lib/utils';
-import { RouterLink, RouterView } from 'vue-router';
+import { getAvg, hours } from '../../lib/utils';
+import WeatherChart from '../charts/WeatherChart.vue';
 
 export default defineComponent({
   name: 'DayWeekCard',
+  data() {
+    return {
+      hours,
+      showChart: false as boolean,
+    };
+  },
   props: {
     date: { type: String as () => string, required: true },
     temperatures: { type: Array as PropType<number[]>, required: true },
   },
+  components: {
+    WeatherChart,
+  },
   methods: {
     getAvg,
+    toggleShowChart() {
+      this.showChart = !this.showChart;
+    },
   },
 });
 </script>

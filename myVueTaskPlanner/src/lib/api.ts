@@ -1,3 +1,9 @@
+import {
+  URL_REYKJAVIK,
+  URL_VALENCIA,
+  URL_VIRGEN_DE_LA_VEGA,
+} from './definitions';
+
 type OpenMeteoHourlyResponse = {
   latitude: number;
   longitude: number;
@@ -15,10 +21,26 @@ type OpenMeteoHourlyResponse = {
   };
 };
 
-export const fetchWeatherData = async () => {
+export const fetchWeatherData = async (option: string) => {
   try {
-    const url =
-      'https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&hourly=temperature_2m';
+    let url: string;
+    switch (option) {
+      case 'Valencia':
+        url = URL_VALENCIA;
+        break;
+
+      case 'Reykjavik':
+        url = URL_REYKJAVIK;
+        break;
+
+      case 'Virgen de la Vega':
+        url = URL_VIRGEN_DE_LA_VEGA;
+        break;
+
+      default:
+        throw new Error('Opción no válida');
+    }
+
     const response = await fetch(url);
 
     if (!response.ok) {
