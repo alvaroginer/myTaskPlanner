@@ -19,7 +19,7 @@ export default defineComponent({
       required: true,
     },
     yAxisAtCero: {
-      type: Boolean as () => boolean,
+      type: Boolean as PropType<boolean>,
       default: true,
     },
   },
@@ -51,6 +51,20 @@ export default defineComponent({
       },
     });
   },
+  // watch: {
+  //   chartData(newData) {
+  //     if (this.chartInstance) {
+  //       this.chartInstance.data.datasets[0].data = newData;
+  //       this.chartInstance.update();
+  //     }
+  //   },
+  //   chartLabels(newLabels) {
+  //     if (this.chartInstance) {
+  //       this.chartInstance.data.labels = newLabels;
+  //       this.chartInstance.update();
+  //     }
+  //   },
+  // },
   beforeUnmount() {
     if (this.chartInstance) {
       this.chartInstance.destroy();

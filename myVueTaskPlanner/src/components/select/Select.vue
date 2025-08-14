@@ -17,11 +17,11 @@ export default defineComponent({
   name: 'Select',
   props: {
     id: {
-      type: String as () => string,
+      type: String as PropType<string>,
       required: true,
     },
     placeholder: {
-      type: String as () => string,
+      type: String as PropType<string>,
     },
     options: {
       type: Array as PropType<string[] | number[]>,

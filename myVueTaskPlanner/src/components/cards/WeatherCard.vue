@@ -10,6 +10,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import type { PropType } from 'vue';
 
 type DateInfoData = {
   hour: number;
@@ -20,11 +21,11 @@ export default defineComponent({
   name: 'WeatherCard',
   props: {
     date: {
-      type: String as () => string,
+      type: String as PropType<string>,
       required: true,
     },
     temperature: {
-      type: Number as () => number,
+      type: Number as PropType<number>,
       required: true,
     },
   },

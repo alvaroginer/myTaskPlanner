@@ -6,16 +6,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
+import type { PropType } from 'vue';
 
 export default defineComponent({
   props: {
     name: {
-      type: String as () => string,
+      type: String as PropType<string>,
       required: true,
     },
     data: {
-      type: Number as () => number,
+      type: Number as PropType<number>,
       required: true,
     },
   },

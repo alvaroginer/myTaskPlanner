@@ -1,18 +1,28 @@
 <template>
-  <div>
+  <div
+    style="
+      margin-bottom: 40px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 10px;
+    "
+  >
+    <p>Select a location:</p>
     <Select
       v-model="selectOption"
       id="weatherSelect"
-      :options="['Valencia', 'Reykjavik', 'La Virgen de la Vega']"
+      :options="locations"
+      @update:model-value="toggleLocation"
     ></Select>
   </div>
   <div v-if="weatherData" class="container">
     <div style="flex: 1">
       <DayWeekCard
-        v-for="(dayWeather, index) in weatherData"
-        :key="index"
-        :date="index"
-        :temperatures="dayWeather"
+        v-for="date in Object.keys(weatherData)"
+        :key="date"
+        :date="date"
+        :temperatures="weatherData[date]"
       />
     </div>
     <div style="flex: 1">
@@ -20,6 +30,7 @@
         v-if="weekTemperatureAvg"
         :chart-data="weekTemperatureAvg"
         :chart-labels="Object.keys(weatherData)"
+        :key="selectOption"
       />
     </div>
   </div>
@@ -44,8 +55,9 @@ export default defineComponent({
   },
   data() {
     return {
+      locations: ['Valencia', 'Reykjavik', 'Virgen de la Vega'] as string[],
+      selectOption: 'Valencia',
       weatherData: null as Record<string, number[]> | null,
-      selectOption: '' as string,
     };
   },
 
@@ -59,13 +71,15 @@ export default defineComponent({
       return dailyAvgTemperature;
     },
   },
-
-  async mounted() {
-    const res = await fetchWeatherData(this.selectOption);
-
-    if (res) {
+  methods: {
+    async toggleLocation() {
+      const res = await fetchWeatherData(this.selectOption);
+      if (!res) return null;
       this.weatherData = res;
-    }
+    },
+  },
+  async mounted() {
+    this.toggleLocation();
   },
 });
 </script>

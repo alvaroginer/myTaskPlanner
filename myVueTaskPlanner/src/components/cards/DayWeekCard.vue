@@ -25,16 +25,17 @@ import WeatherChart from '../charts/WeatherChart.vue';
 
 export default defineComponent({
   name: 'DayWeekCard',
+  props: {
+    date: { type: String as PropType<string>, required: true },
+    temperatures: { type: Array as PropType<number[]>, required: true },
+  },
   data() {
     return {
       hours,
       showChart: false as boolean,
     };
   },
-  props: {
-    date: { type: String as () => string, required: true },
-    temperatures: { type: Array as PropType<number[]>, required: true },
-  },
+
   components: {
     WeatherChart,
   },

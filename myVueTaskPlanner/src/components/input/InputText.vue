@@ -20,34 +20,35 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
+import type { PropType } from 'vue';
 
 export default defineComponent({
-  name: "InputText",
+  name: 'InputText',
   props: {
     id: {
-      type: String as () => string,
+      type: String as PropType<string>,
       required: true,
     },
     label: {
-      type: String as () => string,
+      type: String as PropType<string>,
       required: true,
     },
     placeholder: {
-      type: String as () => string,
+      type: String as PropType<string>,
       required: true,
     },
     errorMessage: {
-      type: String as () => string,
+      type: String as PropType<string>,
     },
     limit: {
-      type: Number as () => number,
+      type: Number as PropType<number>,
     },
     modelValue: {
-      type: String as () => string,
+      type: String as PropType<string>,
     },
   },
-  emits: ["update:modelValue"],
+  emits: ['update:modelValue'],
 
   data() {
     return {
@@ -66,7 +67,7 @@ export default defineComponent({
     handleInput(event: Event) {
       const value = (event.target as HTMLInputElement).value;
       this.inputData = value;
-      this.$emit("update:modelValue", value);
+      this.$emit('update:modelValue', value);
     },
   },
 });
