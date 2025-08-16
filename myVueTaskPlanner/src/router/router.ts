@@ -6,7 +6,7 @@ import SignUp from '../pages/Signup.vue';
 import WeatherSite from '../components/sites/WeatherSite.vue';
 import TaskSite from '../components/sites/TaskSite.vue';
 import SingleTask from '../components/cards/SingleTaskCard.vue';
-import WeatherChart from '../components/charts/WeatherChart.vue';
+import { useStore } from 'vuex';
 
 const routes = [
   { path: '/', component: Landing },
@@ -40,21 +40,21 @@ const router = createRouter({
   routes,
 });
 
-// router.beforeEach((to, from, next) => {
-//   const store = useStore()
-//   const isAuthenticated = !!store.userData
+router.beforeEach((to, from, next) => {
+  const store = useStore();
+  const isAuthenticated = store.state.userData;
 
-//   if (!to.path.startsWith('/home')) {
-//     // Ruta pública, dejamos pasar
-//     return next();
-//   }
+  if (!to.path.startsWith('/home')) {
+    // Ruta pública, dejamos pasar
+    return next();
+  }
 
-//   // Ruta protegida
-//   if (!isAuthenticated()) {
-//     return next('/login');
-//   }
+  // Ruta protegida
+  if (!isAuthenticated) {
+    return next('/login');
+  }
 
-//   next();
-// });
+  next();
+});
 
 export default router;

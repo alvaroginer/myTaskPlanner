@@ -1,19 +1,11 @@
-<script setup lang="ts">
+<script lang="ts">
 import { RouterLink, RouterView } from 'vue-router';
 import CardContainer from '../components/CardContainer.vue';
-//Faltan los imports
+import { defineComponent } from 'vue';
 
-//deinir aquí onAuthStateChanged
-// onMounted(() => {
-//   const store = useStore();
-//   onAuthStateChanged(getAuth(), (firebaseUser) => {
-//     if (firebaseUser) {
-//       return
-//     } else {
-//       store.logOut();
-//     }
-//   });
-// });
+export default defineComponent({
+  name: 'HomePage',
+});
 </script>
 
 <template>
