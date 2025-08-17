@@ -32,7 +32,6 @@ export interface addTaskFormData {
 
 export interface TaskFormErrors {
   name?: string | undefined;
-  description?: string | undefined;
   deadline?: string | undefined;
 }
 

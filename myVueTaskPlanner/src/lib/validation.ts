@@ -1,25 +1,28 @@
-import type { addTaskFormData, TaskData, TaskFormState } from "./definitions";
-import { isValidFutureDate, generateRandomId } from "./utils";
+import type { addTaskFormData, TaskData, TaskFormState } from './definitions';
+import { isValidFutureDate, generateRandomId } from './utils';
+import { getOneUserByMail } from './query/userQuery';
+import { logInDataSchema, addTaskSchema } from './validationSchemas';
+import { email } from 'zod';
+//import { signInWithEmailAndPassword } from 'firebase/auth';
+
+type LogInProps = {
+  email: string;
+  password: string;
+};
 
 export const validateAddTaskForm = ({
   name,
   deadline,
   description,
 }: addTaskFormData): TaskFormState | TaskData => {
-  const nameRegex = /^(?!\s*$).{1,50}$/;
-  if (!nameRegex.test(name.trim())) {
-    console.log("Entra en la validación de nombre");
+  const result = addTaskSchema.safeParse({ name, deadline, description });
+  if (!result.success) {
     return {
       success: false,
-      errors: { name: "Task name must have between 1 and 50 characters" },
-    };
-  }
-
-  const isValidDate = isValidFutureDate(deadline.trim());
-  if (!isValidDate) {
-    return {
-      success: false,
-      errors: { deadline: "Dates must follow the dd/mm/yy format" },
+      errors: {
+        name: result.error.flatten().fieldErrors.name?.[0],
+        deadline: result.error.flatten().fieldErrors.deadline?.[0],
+      },
     };
   }
 
@@ -37,4 +40,19 @@ export const validateAddTaskForm = ({
   }
 
   return validFormData;
+};
+
+export const validateLoginForm = async (formData: LogInProps) => {
+  const result = logInDataSchema.safeParse(formData);
+
+  if (!result.success) {
+    return {
+      errors: {
+        email: result.error.flatten().fieldErrors.email?.[0],
+        password: result.error.flatten().fieldErrors.password?.[0],
+      },
+    };
+  }
+
+  const validateUser = await getOneUserByMail(formData.email);
 };

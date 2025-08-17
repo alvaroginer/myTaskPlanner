@@ -1,4 +1,12 @@
-import { collection, doc, getDoc, setDoc } from 'firebase/firestore';
+import {
+  collection,
+  doc,
+  getDoc,
+  query,
+  setDoc,
+  where,
+  getDocs,
+} from 'firebase/firestore';
 import { db } from '../auth/auth';
 import type { UserData } from '../definitions';
 
@@ -34,6 +42,28 @@ export const getOneUser = async (userId: string) => {
   } catch (error: any) {
     throw new Error(
       `An error happened while fecthing a user: ${error.message}`
+    );
+  }
+};
+
+export const getOneUserByMail = async (email: string) => {
+  try {
+    const ref = collection(db, 'users');
+    const q = query(ref, where('email', '==', email));
+    const querySnap = await getDocs(q);
+
+    if (querySnap.empty) {
+      throw new Error(`Perfil con email ${email} no encontrado.`);
+    }
+
+    // Tomamos el primero que coincida
+    const userDoc = querySnap.docs[0];
+    const typedUserSnap: UserData = userDoc.data() as UserData;
+
+    return typedUserSnap;
+  } catch (error: any) {
+    throw new Error(
+      `An error happened while fetching a user: ${error.message}`
     );
   }
 };

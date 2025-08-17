@@ -6,7 +6,7 @@
       label="Put the task name"
       placeholder="Clean the garden"
       v-model="formData.name"
-      :errorMessage="formDataErrors.errors.name || ''"
+      :errorMessage="formDataErrors.errors.name"
     />
     <InputText
       id="description"
@@ -19,7 +19,7 @@
       label="Introduce a deadline for your task"
       placeholder="dd/mm/yy"
       v-model="formData.deadline"
-      :errorMessage="formDataErrors.errors.deadline || ''"
+      :errorMessage="formDataErrors.errors.deadline"
     />
     <button type="submit">Submit</button>
   </form>
