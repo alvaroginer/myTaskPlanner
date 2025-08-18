@@ -6,32 +6,32 @@ import {
   setDoc,
   where,
   getDocs,
-} from 'firebase/firestore';
-import { db } from '../auth/auth';
-import type { UserData } from '../definitions';
+} from "firebase/firestore";
+import { db } from "../auth/auth";
+import type { UserData } from "../definitions";
 
 //CREATE
 export const createUserDb = async (userData: UserData) => {
   try {
-    const userRef = collection(db, 'users');
+    const userRef = collection(db, "users");
     const newUserRef = doc(userRef);
     const userDataWithRef = { ...userData, id: newUserRef.id };
 
     await setDoc(newUserRef, userDataWithRef);
     console.log(
-      'Event created in FireBase with the following data',
+      "Event created in FireBase with the following data",
       userDataWithRef
     );
     return userDataWithRef.id;
   } catch {
-    throw new Error('An error occurred while creating a user');
+    throw new Error("An error occurred while creating a user");
   }
 };
 
 //READ
 export const getOneUser = async (userId: string) => {
   try {
-    const userSnap = await getDoc(doc(db, 'users', userId));
+    const userSnap = await getDoc(doc(db, "users", userId));
 
     if (!userSnap.exists()) {
       throw new Error(`Perfil con ID ${userId} no encontrado.`);
@@ -48,12 +48,12 @@ export const getOneUser = async (userId: string) => {
 
 export const getOneUserByMail = async (email: string) => {
   try {
-    const ref = collection(db, 'users');
-    const q = query(ref, where('email', '==', email));
+    const ref = collection(db, "users");
+    const q = query(ref, where("email", "==", email));
     const querySnap = await getDocs(q);
 
     if (querySnap.empty) {
-      throw new Error(`Perfil con email ${email} no encontrado.`);
+      throw new Error(`Usuario con email ${email} no encontrado.`);
     }
 
     // Tomamos el primero que coincida
@@ -62,8 +62,6 @@ export const getOneUserByMail = async (email: string) => {
 
     return typedUserSnap;
   } catch (error: any) {
-    throw new Error(
-      `An error happened while fetching a user: ${error.message}`
-    );
+    throw new Error(`Error: ${error.message}`);
   }
 };

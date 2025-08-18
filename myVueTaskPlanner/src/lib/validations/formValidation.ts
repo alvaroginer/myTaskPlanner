@@ -1,9 +1,9 @@
-import type { addTaskFormData, TaskData, TaskFormState } from './definitions';
-import { isValidFutureDate, generateRandomId } from './utils';
-import { getOneUserByMail } from './query/userQuery';
-import { logInDataSchema, addTaskSchema } from './validationSchemas';
-import { email } from 'zod';
-//import { signInWithEmailAndPassword } from 'firebase/auth';
+import type { addTaskFormData, TaskData, TaskFormState } from "../definitions";
+import { generateRandomId } from "../utils";
+import { getOneUserByMail } from "../query/userQuery";
+import { logInDataSchema, addTaskSchema } from "./validationSchemas";
+import { authKey } from "../auth/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 type LogInProps = {
   email: string;
@@ -54,5 +54,22 @@ export const validateLoginForm = async (formData: LogInProps) => {
     };
   }
 
-  const validateUser = await getOneUserByMail(formData.email);
+  try {
+    const validateUser = await getOneUserByMail(formData.email);
+
+    await signInWithEmailAndPassword(
+      authKey,
+      formData.email,
+      formData.password
+    );
+
+    return validateUser;
+  } catch (error: any) {
+    return {
+      errors: {
+        login:
+          error.message ?? "Problemas de inicio de sesión, vuelve a intentarlo",
+      },
+    };
+  }
 };

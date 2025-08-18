@@ -1,5 +1,5 @@
-import type { VuexStore } from '../lib/definitions';
-import type { VuexUser } from '../lib/definitions';
+import type { VuexStore } from "../definitions";
+import type { VuexUser } from "../definitions";
 
 export default {
   logInUser(state: VuexStore, newUserData: VuexUser) {
@@ -8,6 +8,6 @@ export default {
 
   logOut(state: VuexStore) {
     state.userData = null;
-    localStorage.removeItem('userData');
+    localStorage.removeItem("userData");
   },
 };

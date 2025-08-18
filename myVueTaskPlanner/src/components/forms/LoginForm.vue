@@ -19,24 +19,27 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import InputText from '../input/InputText.vue';
+import { defineComponent } from "vue";
+import { validateLoginForm } from "../../lib/validations/formValidation";
+import { mapMutations } from "vuex";
+import InputText from "../input/InputText.vue";
 
 type LoginFormErrors = {
   email?: string | undefined;
   password?: string | undefined;
+  login?: string | undefined;
 };
 
 export default defineComponent({
-  name: 'LoginForm',
+  name: "LoginForm",
   components: {
     InputText,
   },
   data() {
     return {
       formData: {
-        email: '' as string,
-        password: '' as string,
+        email: "" as string,
+        password: "" as string,
       },
       formDataErrors: {
         succes: false as boolean,
@@ -45,8 +48,23 @@ export default defineComponent({
     };
   },
   methods: {
-    handleSubmit() {
-      console.log('hola');
+    ...mapMutations(["logInUser"]),
+    async handleSubmit() {
+      try {
+        const validUser = await validateLoginForm(this.formData);
+
+        if ("errors" in validUser) {
+          this.formDataErrors = {
+            succes: false,
+            errors: validUser.errors,
+          };
+        }
+
+        this.logInUser(validUser);
+        console.log("Succesfull log in");
+      } catch (error: any) {
+        this.formDataErrors;
+      }
     },
   },
 });
