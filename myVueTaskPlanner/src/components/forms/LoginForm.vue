@@ -58,12 +58,20 @@ export default defineComponent({
             succes: false,
             errors: validUser.errors,
           };
+          return;
         }
 
         this.logInUser(validUser);
         console.log("Succesfull log in");
+        this.$router.push("/home");
       } catch (error: any) {
-        this.formDataErrors;
+        this.formDataErrors = {
+          succes: false,
+          errors: {
+            login:
+              "Ocurrió un error con el inicio de sesión. Inténtelo otra vez",
+          },
+        };
       }
     },
   },
