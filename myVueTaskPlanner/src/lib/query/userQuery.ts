@@ -9,22 +9,29 @@ import {
 } from "firebase/firestore";
 import { db } from "../auth/auth";
 import type { UserData } from "../definitions";
+import type { SignUpProps } from "../validations/formValidation";
 
 //CREATE
-export const createUserDb = async (userData: UserData) => {
+export const createUserDb = async (userData: SignUpProps, uidKey: string) => {
   try {
-    const userRef = collection(db, "users");
-    const newUserRef = doc(userRef);
-    const userDataWithRef = { ...userData, id: newUserRef.id };
+    // 1. Verificar si ya existe un usuario con ese email
+    const ref = collection(db, "users");
+    const q = query(ref, where("email", "==", userData.email));
+    const snapshot = await getDocs(q);
+
+    if (!snapshot.empty) {
+      throw new Error("Este email ya está en uso");
+    }
+
+    // 2. Crear el usuario con ID personalizado
+    const newUserRef = doc(ref, uidKey);
+    const userDataWithRef = { ...userData, id: uidKey };
 
     await setDoc(newUserRef, userDataWithRef);
-    console.log(
-      "Event created in FireBase with the following data",
-      userDataWithRef
-    );
-    return userDataWithRef.id;
-  } catch {
-    throw new Error("An error occurred while creating a user");
+
+    return userDataWithRef;
+  } catch (error: any) {
+    throw new Error(error.message || "An error occurred while creating a user");
   }
 };
 

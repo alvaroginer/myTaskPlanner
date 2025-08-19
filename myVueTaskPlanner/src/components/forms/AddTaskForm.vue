@@ -26,10 +26,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import type { TaskFormErrors } from '../../lib/definitions';
-import { validateAddTaskForm } from '../../lib/validation';
-import InputText from '../input/InputText.vue';
+import { defineComponent } from "vue";
+import type { TaskFormErrors } from "../../lib/definitions";
+import { validateAddTaskForm } from "../../lib/validations/formValidation";
+import InputText from "../input/InputText.vue";
 
 type TaskForm = {
   name: string;
@@ -44,9 +44,9 @@ export default defineComponent({
   data() {
     return {
       formData: {
-        name: '' as string,
-        description: '' as string,
-        deadline: '' as string,
+        name: "" as string,
+        description: "" as string,
+        deadline: "" as string,
       } as TaskForm,
       formDataErrors: {
         success: true as boolean,
@@ -57,7 +57,7 @@ export default defineComponent({
   methods: {
     handleSubmit() {
       const result = validateAddTaskForm(this.formData);
-      if ('success' in result && result.success === false) {
+      if ("success" in result && result.success === false) {
         this.formDataErrors = result;
         return;
       }

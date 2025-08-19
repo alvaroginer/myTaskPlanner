@@ -9,6 +9,7 @@ import { RouterLink } from "vue-router";
     </h1>
     <RouterLink to="/signup">Your first time? Sign up</RouterLink>
     <RouterLink to="/login">Already an account? Log in</RouterLink>
+    <v-textarea label="Label"></v-textarea>
   </div>
 </template>
 

@@ -2,7 +2,7 @@
   <div class="container">
     <label :for="id">{{ label }}</label>
     <input
-      type="text"
+      :type="type"
       :name="id"
       :id="id"
       :placeholder="placeholder"
@@ -20,11 +20,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import type { PropType } from 'vue';
+import { defineComponent } from "vue";
+import type { PropType } from "vue";
+
+type InputType = "text" | "password";
 
 export default defineComponent({
-  name: 'InputText',
+  name: "InputText",
   props: {
     id: {
       type: String as PropType<string>,
@@ -47,8 +49,12 @@ export default defineComponent({
     modelValue: {
       type: String as PropType<string>,
     },
+    type: {
+      type: String as PropType<InputType>,
+      default: "text",
+    },
   },
-  emits: ['update:modelValue'],
+  emits: ["update:modelValue"],
 
   data() {
     return {
@@ -67,7 +73,7 @@ export default defineComponent({
     handleInput(event: Event) {
       const value = (event.target as HTMLInputElement).value;
       this.inputData = value;
-      this.$emit('update:modelValue', value);
+      this.$emit("update:modelValue", value);
     },
   },
 });
