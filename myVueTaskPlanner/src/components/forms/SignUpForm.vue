@@ -1,25 +1,34 @@
 <template>
   <form @submit.prevent="handleSubmit">
+    <!-- <v-text-field
+      label="Introduce your name"
+      placeholder="Alvaro"
+      id="firstName"
+      v-model="formData.firstName"
+      :rules="[
+        () => formErrors.errors.firstName || formErrors.errors.firstName,
+      ]"
+    ></v-text-field> -->
     <InputText
       id="firstName"
       label="Introduce your name"
       placeholder="Alvaro"
       v-model="formData.firstName"
-      :error-message="formDataErrors.errors.firstName"
+      :error-message="formErrors.errors.firstName"
     ></InputText>
     <InputText
       id="lastName"
       label="Introduce your last name"
       placeholder="Giner"
       v-model="formData.lastName"
-      :error-message="formDataErrors.errors.lastName"
+      :error-message="formErrors.errors.lastName"
     ></InputText>
     <InputText
       id="email"
       label="Introduce your email"
       placeholder="example@mail.com"
       v-model="formData.email"
-      :error-message="formDataErrors.errors.email"
+      :error-message="formErrors.errors.email"
     ></InputText>
     <InputText
       id="password"
@@ -27,7 +36,7 @@
       placeholder="Abcd1234*"
       v-model="formData.password"
       type="password"
-      :error-message="formDataErrors.errors.password"
+      :error-message="formErrors.errors.password"
     ></InputText>
     <button type="submit">Submit</button>
   </form>
@@ -49,7 +58,7 @@ type SignUpFormErrors = {
 
 export default defineComponent({
   name: "SignUpForm",
-  components: InputText,
+  components: { InputText },
   data() {
     return {
       formData: {
