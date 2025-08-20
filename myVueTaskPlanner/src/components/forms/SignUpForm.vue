@@ -1,44 +1,36 @@
 <template>
   <form @submit.prevent="handleSubmit">
-    <!-- <v-text-field
+    <v-text-field
       label="Introduce your name"
       placeholder="Alvaro"
       id="firstName"
       v-model="formData.firstName"
-      :rules="[
-        () => formErrors.errors.firstName || formErrors.errors.firstName,
-      ]"
-    ></v-text-field> -->
-    <InputText
-      id="firstName"
-      label="Introduce your name"
-      placeholder="Alvaro"
-      v-model="formData.firstName"
-      :error-message="formErrors.errors.firstName"
-    ></InputText>
-    <InputText
+      :error-messages="formErrors.errors.firstName"
+    ></v-text-field>
+    <v-text-field
       id="lastName"
       label="Introduce your last name"
       placeholder="Giner"
       v-model="formData.lastName"
-      :error-message="formErrors.errors.lastName"
-    ></InputText>
-    <InputText
+      :error-messages="formErrors.errors.lastName"
+    ></v-text-field>
+    <v-text-field
       id="email"
       label="Introduce your email"
       placeholder="example@mail.com"
       v-model="formData.email"
-      :error-message="formErrors.errors.email"
-    ></InputText>
-    <InputText
+      :error-messages="formErrors.errors.email"
+    ></v-text-field>
+    <v-text-field
       id="password"
       label="Introduce your password"
       placeholder="Abcd1234*"
       v-model="formData.password"
       type="password"
-      :error-message="formErrors.errors.password"
-    ></InputText>
-    <button type="submit">Submit</button>
+      :error-messages="formErrors.errors.password"
+    ></v-text-field>
+    <p v-if="formErrors.errors.signup">{{ formErrors.errors.signup }}</p>
+    <v-btn variant="tonal" type="submit"> Sign up </v-btn>
   </form>
 </template>
 
@@ -46,7 +38,6 @@
 import { defineComponent } from "vue";
 import { validateSignupForm } from "../../lib/validations/formValidation";
 import { mapMutations } from "vuex";
-import InputText from "../input/InputText.vue";
 
 type SignUpFormErrors = {
   firstName?: string | undefined;
@@ -58,7 +49,7 @@ type SignUpFormErrors = {
 
 export default defineComponent({
   name: "SignUpForm",
-  components: { InputText },
+
   data() {
     return {
       formData: {

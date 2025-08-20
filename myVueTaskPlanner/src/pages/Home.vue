@@ -1,15 +1,22 @@
 <script lang="ts">
-import { RouterLink, RouterView } from 'vue-router';
-import CardContainer from '../components/CardContainer.vue';
-import { defineComponent } from 'vue';
+import { RouterLink, RouterView } from "vue-router";
+import { defineComponent } from "vue";
+import { store } from "../lib/store";
+import CardContainer from "../components/CardContainer.vue";
 
 export default defineComponent({
-  name: 'HomePage',
+  name: "HomePage",
+  data() {
+    return {
+      user: store.state.userData,
+    };
+  },
 });
 </script>
 
 <template>
   <main class="dashboard">
+    <h2>Hi there {{ user?.firstName }}</h2>
     <CardContainer />
     <div class="container">
       <div>

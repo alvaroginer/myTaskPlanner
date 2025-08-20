@@ -1,20 +1,20 @@
 <template>
   <form @submit.prevent="handleSubmit">
-    <InputText
+    <v-text-field
       id="email"
       label="Introduce your email"
       placeholder="example@gmail.com"
       v-model="formData.email"
-      :error-message="formDataErrors.errors.email"
-    ></InputText>
-    <InputText
+      :error-messages="formDataErrors.errors.email"
+    ></v-text-field>
+    <v-text-field
       id="password"
       label="Introduce your password"
       placeholder="Abcd123*"
       v-model="formData.password"
-      :error-message="formDataErrors.errors.password"
-    ></InputText>
-    <button type="submit">Submit</button>
+      :error-messages="formDataErrors.errors.password"
+    ></v-text-field>
+    <v-btn variant="tonal" type="submit"> Log in </v-btn>
   </form>
 </template>
 
@@ -22,7 +22,6 @@
 import { defineComponent } from "vue";
 import { validateLoginForm } from "../../lib/validations/formValidation";
 import { mapMutations } from "vuex";
-import InputText from "../input/InputText.vue";
 
 type LoginFormErrors = {
   email?: string | undefined;
@@ -32,9 +31,6 @@ type LoginFormErrors = {
 
 export default defineComponent({
   name: "LoginForm",
-  components: {
-    InputText,
-  },
   data() {
     return {
       formData: {
