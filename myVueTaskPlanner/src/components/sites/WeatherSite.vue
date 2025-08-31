@@ -9,12 +9,12 @@
     "
   >
     <p>Select a location:</p>
-    <Select
+    <v-select
+      label="Locations"
+      :items="locations"
       v-model="selectOption"
-      id="weatherSelect"
-      :options="locations"
       @update:model-value="toggleLocation"
-    ></Select>
+    ></v-select>
   </div>
   <div v-if="weatherData" class="container">
     <div style="flex: 1">
@@ -39,15 +39,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import { fetchWeatherData } from '../../lib/api';
-import { getAvg } from '../../lib/utils';
-import DayWeekCard from '../cards/DayWeekCard.vue';
-import WeatherChart from '../charts/WeatherChart.vue';
-import Select from '../select/Select.vue';
+import { defineComponent } from "vue";
+import { fetchWeatherData } from "../../lib/api";
+import { getAvg } from "../../lib/utils";
+import DayWeekCard from "../cards/DayWeekCard.vue";
+import WeatherChart from "../charts/WeatherChart.vue";
+import Select from "../select/Select.vue";
 
 export default defineComponent({
-  name: 'WeatherSite',
+  name: "WeatherSite",
   components: {
     DayWeekCard,
     WeatherChart,
@@ -55,8 +55,8 @@ export default defineComponent({
   },
   data() {
     return {
-      locations: ['Valencia', 'Reykjavik', 'Virgen de la Vega'] as string[],
-      selectOption: 'Valencia',
+      locations: ["Valencia", "Reykjavik", "Virgen de la Vega"] as string[],
+      selectOption: "Valencia",
       weatherData: null as Record<string, number[]> | null,
     };
   },

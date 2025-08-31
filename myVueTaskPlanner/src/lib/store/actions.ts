@@ -5,8 +5,9 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 export default {
   async updateUser({ commit }: { commit: Commit }, userId: string) {
     const newUserData = await getOneUser(userId);
-    commit("logInUser", newUserData);
-    localStorage.setItem("userData", JSON.stringify(newUserData));
+    const { tasks, ...vuexUser } = newUserData;
+    commit("logInUser", vuexUser);
+    localStorage.setItem("userData", JSON.stringify(vuexUser));
   },
   async initFirebaseAuth({
     commit,
@@ -17,7 +18,7 @@ export default {
   }) {
     onAuthStateChanged(getAuth(), (firebaseUser) => {
       if (firebaseUser) {
-        dispatch("upDateUser", firebaseUser.uid);
+        dispatch("updateUser", firebaseUser.uid);
       } else {
         commit("logOut");
       }

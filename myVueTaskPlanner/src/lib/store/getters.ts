@@ -1,4 +1,4 @@
-import type { VuexStore } from "../lib/definitions";
+import type { VuexStore } from "../definitions";
 
 export default {
   getUserFullName(state: VuexStore) {

@@ -34,7 +34,7 @@ export default defineComponent({
           Weather</RouterLink
         >
       </div>
-      <div style="background-color: azure">
+      <div style="background-color: #f5f5f5">
         <RouterView />
       </div>
     </div>
