@@ -33,6 +33,7 @@
         :key="selectOption"
       />
     </div>
+    <DataTable />
   </div>
 
   <p v-else>Loading...</p>

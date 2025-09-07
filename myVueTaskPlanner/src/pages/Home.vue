@@ -3,9 +3,14 @@ import { RouterLink, RouterView } from "vue-router";
 import { defineComponent } from "vue";
 import { store } from "../lib/store";
 import CardContainer from "../components/CardContainer.vue";
+import DataTable from "../components/tables/DataTable.vue";
 
 export default defineComponent({
   name: "HomePage",
+  componentes: {
+    CardContainer,
+    DataTable,
+  },
   data() {
     return {
       user: store.state.userData,
@@ -17,6 +22,20 @@ export default defineComponent({
 <template>
   <main class="dashboard">
     <h2>Hi there {{ user?.firstName }}</h2>
+    <Suspense>
+      <!-- Contenido principal -->
+      <template #default>
+        <div>
+          <DataTable />
+        </div>
+      </template>
+
+      <!-- Fallback mientras se carga -->
+      <template #fallback>
+        <v-skeleton-loader type="table" class="my-4"></v-skeleton-loader>
+      </template>
+    </Suspense>
+
     <CardContainer />
     <div class="container">
       <div>
