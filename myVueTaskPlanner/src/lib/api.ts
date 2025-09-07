@@ -105,7 +105,7 @@ export interface OpenMeteoDailyResponse {
 export const fetchWeeklyWeatherData = async () => {
   try {
     const url =
-      "https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&daily=temperature_2m_max,temperature_2m_min,weather_code,precipitation_sum,sunrise,sunset";
+      "https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&daily=temperature_2m_max,temperature_2m_min,weather_code,sunrise,sunset,precipitation_probability_max";
     const response = await fetch(url);
 
     if (!response.ok) {
@@ -130,7 +130,7 @@ export const fetchWeeklyWeatherData = async () => {
         maxTemperature: temperature_2m_max[index],
         minTemperature: temperature_2m_min[index],
         weatherStatus: translateWeatherCode(weather_code[index]),
-        precipitations: `${precipitation_probability_max?.[index]}$`,
+        precipitations: `${precipitation_probability_max?.[index]}%`,
         sunriseHour: getHoursAndMinutes(sunrise[index]),
         sunsetHour: getHoursAndMinutes(sunset[index]),
       })

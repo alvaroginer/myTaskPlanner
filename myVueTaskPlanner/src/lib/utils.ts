@@ -27,7 +27,11 @@ export const generateDayString = (timestamp: number) => {
 
 export const getHoursAndMinutes = (timestamp: string) => {
   const formatedDate = new Date(timestamp);
-  return `${formatedDate.getHours()}:${formatedDate.getMinutes()}`;
+  const dateHours = formatedDate.getHours();
+  const dateMinutes = formatedDate.getMinutes();
+  return `${dateHours < 10 ? `0${dateHours}` : dateHours}:${
+    dateMinutes < 10 ? `0${dateMinutes}` : dateMinutes
+  }`;
 };
 
 export const getAvg = (grades: number[]) => {

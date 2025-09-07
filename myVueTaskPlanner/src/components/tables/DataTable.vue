@@ -1,6 +1,15 @@
 <template>
+  <v-text-field
+    v-model="search"
+    label="Search"
+    prepend-inner-icon="mdi-magnify"
+    variant="outlined"
+    hide-details
+    single-line
+  ></v-text-field>
   <v-data-table
     v-if="weatherData.length"
+    :search="search"
     :headers="headers"
     :items="weatherData"
     hide-default-footer
@@ -37,6 +46,7 @@ export default defineComponent({
   data() {
     return {
       weatherData: [] as FormatedDayWeatherData[],
+      search: "" as string,
     };
   },
 

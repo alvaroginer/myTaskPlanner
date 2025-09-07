@@ -7,7 +7,7 @@ import DataTable from "../components/tables/DataTable.vue";
 
 export default defineComponent({
   name: "HomePage",
-  componentes: {
+  components: {
     CardContainer,
     DataTable,
   },
@@ -21,13 +21,11 @@ export default defineComponent({
 
 <template>
   <main class="dashboard">
-    <h2>Hi there {{ user?.firstName }}</h2>
+    <h2 style="margin-bottom: 50px">Hi there {{ user?.firstName }}</h2>
     <Suspense>
       <!-- Contenido principal -->
       <template #default>
-        <div>
-          <DataTable />
-        </div>
+        <DataTable />
       </template>
 
       <!-- Fallback mientras se carga -->
